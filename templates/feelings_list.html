@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список чувств</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'feelingss/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Чувства</h1>
+        <ul>
+            {% for feeling in feelings %}
+                <li>
+                    <a href="{% url 'feeling_detail' feeling.id %}">
+                        {{ feeling.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="/">Вернуться на главную</a>
+    </div>
+</body>
+</html>

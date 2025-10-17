@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ feeling.name }}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'feelingss/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ feeling.name }}</h1>
+        <p>{{ feeling.description }}</p>
+        <a href="{% url 'feelings_list' %}">Ко всем чувствам</a>
+    </div>
+</body>
+</html>
