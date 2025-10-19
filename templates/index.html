@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Главная</title>
-
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'feelingss/style.css' %}">
-</head>
 <body>
+ <title>Главная</title>
               <h1>Добро пожаловать на Главную страницу!</h1><br>
 
 
@@ -16,6 +12,137 @@
     <a href="/description/">Перейти к странице "Описание"</a><br>
 
 </body>
+</head>
+<head>
+    <!-- Солнце -->
+    <div class="sun"></div>
+
+    <!-- Облака -->
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+
+    <!-- Птицы -->
+    <div class="bird bird-1">🕊️</div>
+    <div class="bird bird-2">🕊️</div>
+
+    <!-- Остров и пальмы -->
+    <div class="island"></div>
+    <div class="beach"></div>
+
+    <div class="palm-tree palm-1">
+        <div class="trunk"></div>
+        <div class="leaves">
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+        </div>
+    </div>
+
+    <div class="palm-tree palm-2">
+        <div class="trunk"></div>
+        <div class="leaves">
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+        </div>
+    </div>
+
+    <!-- Океан и волны -->
+    <div class="ocean">
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <!-- Контент -->
+    <div class="content">
+        <div class="header">
+            <h1>🌴 Остров Чувств</h1>
+            <p class="subtitle">Поделитесь своими эмоциями и чувствами в этом уютном уголке</p>
+        </div>
+
+        <!-- Форма для分享 чувств -->
+        <div class="feelings-form">
+            <h3>💭 Расскажите о своих чувствах</h3>
+            <textarea placeholder="Что вы чувствуете сегодня? Поделитесь своими эмоциями..."></textarea>
+            <button>📝 Отправить в море чувств</button>
+        </div>
+
+        <!-- Сетка эмоций -->
+        <div class="emotions-grid">
+            <div class="emotion-card">
+                <div class="emotion-icon">😊</div>
+                <div class="emotion-name">Радость</div>
+                <div class="emotion-desc">Светлое и приятное чувство</div>
+            </div>
+            <div class="emotion-card">
+                <div class="emotion-icon">😢</div>
+                <div class="emotion-name">Грусть</div>
+                <div class="emotion-desc">Тихая печаль и размышления</div>
+            </div>
+            <div class="emotion-card">
+                <div class="emotion-icon">😠</div>
+                <div class="emotion-name">Гнев</div>
+                <div class="emotion-desc">Сильное негодование</div>
+            </div>
+            <div class="emotion-card">
+                <div class="emotion-icon">😨</div>
+                <div class="emotion-name">Страх</div>
+                <div class="emotion-desc">Тревога и беспокойство</div>
+            </div>
+            <div class="emotion-card">
+                <div class="emotion-icon">😍</div>
+                <div class="emotion-name">Любовь</div>
+                <div class="emotion-desc">Нежность и привязанность</div>
+            </div>
+            <div class="emotion-card">
+                <div class="emotion-icon">😲</div>
+                <div class="emotion-name">Удивление</div>
+                <div class="emotion-desc">Неожиданное впечатление</div>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="/" class="nav-link">🏠 На главный остров</a>
+            <a href="/description/" class="nav-link">📖 Остров Знаний</a>
+        </div>
+    </div>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'feelingss/style.css' %}">
+
+
+
+</head>
+<script>
+        // Простой скрипт для формы
+        document.querySelector('.feelings-form button').addEventListener('click', function() {
+            const textarea = document.querySelector('.feelings-form textarea');
+            if (textarea.value.trim()) {
+                alert('Ваши чувства отправлены в море эмоций! 🌊');
+                textarea.value = '';
+            } else {
+                alert('Пожалуйста, напишите о своих чувствах');
+            }
+        });
+
+        // Клик по карточкам эмоций
+        document.querySelectorAll('.emotion-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const emotion = this.querySelector('.emotion-name').textContent;
+                const textarea = document.querySelector('.feelings-form textarea');
+                textarea.value = `Я чувствую ${emotion.toLowerCase()}...`;
+                textarea.focus();
+            });
+        });
+    </script>
+
 </html>
 
 
