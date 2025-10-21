@@ -26,8 +26,13 @@ SECRET_KEY = 'django-insecure-^i^(r0j$@bx)w1l6=7hgi0n@%yra6@^%=&m5%zmo$#65cn5rmk
 DEBUG = True
 
 ALLOWED_HOSTS = []
+LOGIN_REDIRECT_URL = '/'  # Куда перенаправлять после входа
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = 'login'
 
+AUTH_USER_MODEL = 'feelingss.CustomUser'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Для разработки
 # Application definition
 
 INSTALLED_APPS = [

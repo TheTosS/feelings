@@ -1,0 +1,492 @@
+/* style.css - Тропический остров для страницы чувств */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    background: linear-gradient(to bottom, #87CEEB, #1E90FF);
+}
+
+/* Океан */
+.ocean {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to bottom, #1E90FF, #000080);
+    z-index: 1;
+}
+
+/* Волны */
+.wave {
+    position: absolute;
+    top: -20px;
+    width: 100%;
+    height: 40px;
+    background: url('data:image/svg+xml,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0 60 C300 120 600 0 900 60 S1500 0 1800 60 L1800 120 L0 120 Z" fill="%231E90FF"/></svg>');
+    animation: wave 10s linear infinite;
+}
+
+.wave:nth-child(2) {
+    top: -15px;
+    animation: wave 8s linear infinite;
+    opacity: 0.7;
+}
+
+/* Остров */
+.island {
+    position: fixed;
+    bottom: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 200px;
+    background: linear-gradient(to bottom, #8B4513, #A0522D);
+    border-radius: 50% 50% 0 0;
+    z-index: 2;
+}
+
+.island::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 100px;
+    background: linear-gradient(to bottom, #8B4513, #A0522D);
+    border-radius: 50%;
+}
+
+/* Пальмы */
+.palm-tree {
+    position: fixed;
+    bottom: 45%;
+    z-index: 3;
+}
+
+.palm-1 {
+    left: 35%;
+}
+
+.palm-2 {
+    right: 35%;
+}
+
+.trunk {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 120px;
+    background: linear-gradient(to right, #8B4513, #A0522D, #8B4513);
+    border-radius: 10px;
+}
+
+.leaves {
+    position: absolute;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.leaf {
+    position: absolute;
+    width: 80px;
+    height: 40px;
+    background: #228B22;
+    border-radius: 50% 0 50% 50%;
+    transform-origin: bottom left;
+    animation: sway 4s ease-in-out infinite;
+}
+
+.leaf:nth-child(1) { transform: rotate(0deg); animation-delay: 0s; }
+.leaf:nth-child(2) { transform: rotate(45deg); animation-delay: 0.5s; }
+.leaf:nth-child(3) { transform: rotate(90deg); animation-delay: 1s; }
+.leaf:nth-child(4) { transform: rotate(135deg); animation-delay: 1.5s; }
+.leaf:nth-child(5) { transform: rotate(180deg); animation-delay: 2s; }
+.leaf:nth-child(6) { transform: rotate(225deg); animation-delay: 2.5s; }
+
+/* Солнце */
+.sun {
+    position: fixed;
+    top: 50px;
+    right: 100px;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, #FFD700, #FF8C00);
+    border-radius: 50%;
+    box-shadow: 0 0 50px #FFA500;
+    z-index: 1;
+    animation: sunGlow 4s ease-in-out infinite;
+}
+
+/* Облака */
+.cloud {
+    position: fixed;
+    background: white;
+    border-radius: 50px;
+    z-index: 1;
+    animation: clouds 20s linear infinite;
+}
+
+.cloud-1 {
+    top: 80px;
+    left: -100px;
+    width: 120px;
+    height: 60px;
+    animation-delay: 0s;
+}
+
+.cloud-2 {
+    top: 120px;
+    left: -150px;
+    width: 180px;
+    height: 70px;
+    animation-delay: 5s;
+}
+
+.cloud-3 {
+    top: 180px;
+    left: -200px;
+    width: 150px;
+    height: 55px;
+    animation-delay: 10s;
+}
+
+.cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 70px;
+    height: 70px;
+    top: -25px;
+    left: 20px;
+}
+
+.cloud::after {
+    width: 60px;
+    height: 60px;
+    top: -20px;
+    right: 20px;
+}
+
+/* Песок на берегу */
+.beach {
+    position: fixed;
+    bottom: 40%;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to bottom, #F4A460, #D2B48C);
+    z-index: 2;
+}
+
+/* Контент */
+.content {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+    color: #2C3E50;
+}
+
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.header h1 {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: #2C3E50;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.subtitle {
+    font-size: 1.3em;
+    color: #7F8C8D;
+    margin-bottom: 20px;
+}
+
+/* Форма для чувств */
+.feelings-form {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.feelings-form h3 {
+    color: #2C3E50;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.feelings-form textarea {
+    width: 100%;
+    height: 150px;
+    padding: 15px;
+    border: 2px solid #3498DB;
+    border-radius: 10px;
+    font-size: 1.1em;
+    resize: vertical;
+    margin-bottom: 15px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.feelings-form textarea:focus {
+    outline: none;
+    border-color: #2980B9;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+}
+
+.feelings-form button {
+    background: linear-gradient(135deg, #3498DB, #2980B9);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.feelings-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+}
+
+/* Эмоции */
+.emotions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.emotion-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.emotion-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.emotion-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.emotion-name {
+    font-weight: bold;
+    color: #2C3E50;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+.emotion-desc {
+    color: #7F8C8D;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+/* Навигационные ссылки */
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.nav-link {
+    background: linear-gradient(135deg, #3498DB, #2980B9);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    border: 3px solid rgba(255,255,255,0.5);
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
+}
+
+.nav-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(52, 152, 219, 0.5);
+    background: linear-gradient(135deg, #2980B9, #3498DB);
+}
+
+/* Птицы */
+.bird {
+    position: fixed;
+    z-index: 4;
+    color: #2C3E50;
+    font-size: 24px;
+    animation: fly 15s linear infinite;
+}
+
+.bird-1 {
+    top: 30%;
+    left: -50px;
+    animation-delay: 0s;
+}
+
+.bird-2 {
+    top: 25%;
+    left: -80px;
+    animation-delay: 7s;
+}
+
+/* Ракушки на пляже */
+.shell {
+    position: fixed;
+    bottom: 39%;
+    z-index: 3;
+    font-size: 20px;
+    animation: shellBounce 8s ease-in-out infinite;
+}
+
+.shell-1 {
+    left: 25%;
+    animation-delay: 0s;
+}
+
+.shell-2 {
+    left: 70%;
+    animation-delay: 2s;
+}
+
+.shell-3 {
+    left: 45%;
+    animation-delay: 4s;
+}
+
+/* Анимации */
+@keyframes wave {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-30px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes sway {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(5deg); }
+}
+
+@keyframes clouds {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(100vw + 200px)); }
+}
+
+@keyframes fly {
+    0% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(25vw) translateY(-20px); }
+    50% { transform: translateX(50vw) translateY(0); }
+    75% { transform: translateX(75vw) translateY(-15px); }
+    100% { transform: translateX(100vw) translateY(0); }
+}
+
+@keyframes shellBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(10deg); }
+}
+
+@keyframes sunGlow {
+    0%, 100% { box-shadow: 0 0 50px #FFA500; }
+    50% { box-shadow: 0 0 70px #FF8C00, 0 0 100px #FF4500; }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .island {
+        width: 400px;
+    }
+
+    .palm-1 { left: 25%; }
+    .palm-2 { right: 25%; }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header h1 {
+        font-size: 2em;
+    }
+
+    .emotions-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .feelings-form {
+        padding: 20px;
+    }
+
+    .header {
+        padding: 30px 20px;
+    }
+
+    .sun {
+        width: 60px;
+        height: 60px;
+        right: 30px;
+        top: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .island {
+        width: 300px;
+    }
+
+    .palm-1 { left: 15%; }
+    .palm-2 { right: 15%; }
+
+    .header {
+        padding: 25px 15px;
+    }
+
+    .header h1 {
+        font-size: 1.8em;
+    }
+
+    .nav-link {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+
+    .emotions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
