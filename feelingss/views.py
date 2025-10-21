@@ -49,7 +49,27 @@ def feeling_list(request):
 # Защищенные представления
 @login_required
 def profile(request):
-    return render(request, 'registration/login.html')
+    # Статистика пользователя
+    user_feelings = Feeling.objects.filter(user=request.user)
+    total_feelings = user_feelings.count()
+
+    # Подсчет эмоций с правильными названиями
+    emotion_stats = {}
+    for emotion_code, emotion_name in Feeling.EMOTION_CHOICES:
+        count = user_feelings.filter(emotion=emotion_code).count()
+        if count > 0:
+            emotion_stats[emotion_name] = count
+
+    # Последние записи
+    recent_feelings = user_feelings.order_by('-created_at')[:5]
+
+    context = {
+        'total_feelings': total_feelings,
+        'emotion_stats': emotion_stats,
+        'recent_feelings': recent_feelings,
+    }
+
+    return render(request, 'profile.html', context)
 
 
 @login_required
