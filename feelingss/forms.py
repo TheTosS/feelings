@@ -35,15 +35,24 @@ class FeelingForm(forms.ModelForm):
         fields = ['text', 'emotion']
         widgets = {
             'text': forms.Textarea(attrs={
-                'placeholder': 'Что вы чувствуете сегодня? Поделитесь своими эмоциями...',
-                'rows': 4,
-                'class': 'form-control'
+                'placeholder': 'Опишите подробно, что вы чувствуете сегодня... 💫\nНапример: "Сегодня я чувствую себя прекрасно! Встретил старого друга и провел отличный день на природе."',
+                'rows': 5,
+                'class': 'form-control',
+                'maxlength': '1000'
             }),
             'emotion': forms.Select(attrs={
-                'class': 'form-control'
+                'class': 'form-control form-select'
             })
         }
         labels = {
             'text': 'Ваши чувства',
             'emotion': 'Основная эмоция'
         }
+
+    def clean_text(self):
+        text = self.cleaned_data.get('text')
+        if len(text.strip()) < 5:
+            raise forms.ValidationError('Пожалуйста, напишите хотя бы несколько слов о ваших чувствах.')
+        return text
+
+

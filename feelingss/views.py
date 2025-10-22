@@ -1,15 +1,55 @@
+from . import forms
+from .forms import CustomUserCreationForm, FeelingForm
 
-from django.shortcuts import render, get_object_or_404
-from .models import Feeling
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import logout
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 
-from .forms import CustomUserCreationForm, FeelingForm
 from .models import Feeling
-from django.contrib.auth import logout
-from django.shortcuts import redirect
-from django.contrib import messages
+
+
+def home(request):
+    if request.user.is_authenticated:
+        feelings = Feeling.objects.filter(user=request.user).order_by('-created_at')
+
+        if request.method == 'POST':
+            form = FeelingForm(request.POST)
+            if form.is_valid():
+                feeling = form.save(commit=False)
+                feeling.user = request.user
+                feeling.save()
+                messages.success(request, '✅ Запись успешно добавлена!')
+                return redirect('home')
+        else:
+            form = FeelingForm()
+
+        return render(request, 'home.html', {
+            'feelings': feelings,
+            'form': form
+        })
+    else:
+        if request.method == 'POST':
+            form = CustomUserCreationForm(request.POST)
+            if form.is_valid():
+                user = form.save()
+                login(request, user)
+                messages.success(request, '🎉 Регистрация прошла успешно!')
+                return redirect('home')
+        else:
+            form = CustomUserCreationForm()
+
+        return render(request, 'home.html', {'form': form})
+
+
+@login_required
+def delete_feeling(request, pk):
+    feeling = get_object_or_404(Feeling, pk=pk, user=request.user)
+    if request.method == 'POST':
+        feeling.delete()
+        messages.success(request, '🗑️ Запись удалена!')
+    return redirect('home')
 
 
 def register(request):
@@ -30,20 +70,26 @@ def feeling_list(request):
     feelings = Feeling.objects.filter(user=request.user).order_by('-created_at')
 
     if request.method == 'POST':
-        form = FeelingForm(request.POST)
+        form = Feeling(request.POST)
         if form.is_valid():
-            feeling = form.save(commit=False)
+            feeling = form.save()
             feeling.user = request.user
             feeling.save()
             messages.success(request, 'Запись добавлена!')
             return redirect('home')
+        else:
+            return render(request, 'index.html', {
+                'form': form,
+                'feelings': feelings,
+            })
     else:
-        form = FeelingForm()
+        form = Feeling()
 
     return render(request, 'index.html', {
         'feelings': feelings,
         'form': form
     })
+
 
 
 # Защищенные представления
