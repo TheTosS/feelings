@@ -5,6 +5,9 @@ urlpatterns = [
 
     path('', views.home, name='home'),
     # Аутентификация
+
+    path('feelings/', views.feelings_wiki, name='feelings_wiki'),  # Ссылка для отображения чувств
+
     path('register/', views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', views.custom_logout, name='logout'),

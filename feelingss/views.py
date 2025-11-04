@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 
+
 from .models import Feeling
 
 
@@ -41,6 +42,12 @@ def home(request):
             form = CustomUserCreationForm()
 
         return render(request, 'home.html', {'form': form})
+
+
+def feelings_wiki(request):
+    feelings1 = Feeling.objects.all()  # Запрашиваем все чувства из базы данных
+    return render(request, 'feelings_wiki.html', {'feelings': feelings1})
+
 
 
 @login_required

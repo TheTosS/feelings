@@ -8,6 +8,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">Feelings App</a>
+            <a href="{% url 'feelings_wiki' %}">Посмотреть список чувств</a>
 
             <div class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}

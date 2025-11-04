@@ -23,6 +23,36 @@
             margin: 0 auto;
         }
 
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: #2c3e50;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            border: 2px solid transparent;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            border-color: #3498db;
+        }
+
+        .back-button:active {
+            transform: translateY(0);
+        }
+
+        .back-icon {
+            font-size: 1.2rem;
+        }
+
         header {
             text-align: center;
             margin-bottom: 50px;
@@ -132,6 +162,7 @@
             font-size: 0.9rem;
         }
 
+        /* Стили для мобильных устройств */
         @media (max-width: 600px) {
             .emotions-grid {
                 grid-template-columns: 1fr;
@@ -144,11 +175,50 @@
             .emotion-card {
                 padding: 20px;
             }
+
+            .back-button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Дополнительные стили для кнопки, если нужно разместить её в другом месте */
+        .back-button-top {
+            margin-bottom: 30px;
+        }
+
+        .back-button-bottom {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Вариант 1: Простая кнопка назад вверху -->
+        <a href="javascript:history.back()" class="back-button back-button-top">
+            <span class="back-icon">←</span>
+            Назад
+        </a>
+
+        <!-- Вариант 2: Если нужно несколько кнопок - используйте button-group -->
+        <!--
+        <div class="button-group">
+            <a href="javascript:history.back()" class="back-button">
+                <span class="back-icon">←</span>
+                Назад
+            </a>
+            <button class="back-button">Другая кнопка</button>
+        </div>
+        -->
+
         <header>
             <h1>Эмоции и их значения</h1>
             <p class="subtitle">Понимание своих чувств - первый шаг к эмоциональному благополучию</p>
@@ -316,9 +386,37 @@
             </div>
         </div>
 
+        <!-- Вариант 3: Кнопка назад внизу -->
+        <div class="back-button-bottom">
+            <a href="javascript:history.back()" class="back-button">
+                <span class="back-icon">←</span>
+                Вернуться назад
+            </a>
+        </div>
+
         <footer>
             <p>Помните: все эмоции важны и выполняют свою функцию. Нет "плохих" или "хороших" эмоций.</p>
         </footer>
     </div>
+
+    <script>
+        // Дополнительный функционал для кнопки назад
+        document.addEventListener('DOMContentLoaded', function() {
+            // Можно добавить дополнительную логику при нажатии кнопки "Назад"
+            const backButtons = document.querySelectorAll('.back-button');
+
+            backButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Здесь можно добавить дополнительную логику
+                    console.log('Возврат на предыдущую страницу');
+                    // Например, сохранение данных перед уходом
+
+                    // Если нужно предотвратить стандартное поведение:
+                    // e.preventDefault();
+                    // window.location.href = 'specific-page.html';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
