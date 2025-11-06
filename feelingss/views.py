@@ -1,5 +1,10 @@
 from . import forms
 from .forms import CustomUserCreationForm, FeelingForm
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+import random
 
 from django.contrib.auth import logout
 from django.contrib import messages
@@ -153,3 +158,61 @@ def custom_logout(request):
 def feeling_detail(request, feeling_id):
     feeling = get_object_or_404(Feeling, id=feeling_id)  # Получаем чувство по id (или 404)
     return render(request, 'feeling_detail.html', {'feeling': feeling})
+
+
+def chat(request):
+    """Страница чата"""
+    return render(request, 'chat.html')
+
+
+@csrf_exempt
+def chat_send(request):
+    """API endpoint для отправки сообщений в чат"""
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            user_message = data.get('message', '').lower()
+
+            # Простые ответы бота на основе ключевых слов
+            bot_responses = {
+                'default': [
+                    "Расскажите подробнее о том, что вы чувствуете.",
+                    "Понимаю. Как это ощущение влияет на вашу повседневную жизнь?",
+                    "Спасибо, что делитесь. Что, по вашему мнению, вызывает эти эмоции?",
+                ],
+                'привет': [
+                    "Здравствуйте! Как вы себя чувствуете сегодня?",
+                    "Привет! Расскажите, что у вас на душе.",
+                ],
+                'груст': [
+                    "Мне жаль, что вы чувствуете грусть. 🫂 Хотите рассказать, что произошло?",
+                    "Грусть показывает, что что-то было для вас важно. Давайте разберемся.",
+                ],
+                'счастлив': [
+                    "Это замечательно! 😊 Что именно вызывает у вас это чувство?",
+                    "Радость - прекрасная эмоция! Поделитесь своим счастьем!",
+                ]
+            }
+
+            # Поиск подходящего ответа
+            response = None
+            for keyword, responses in bot_responses.items():
+                if keyword in user_message and keyword != 'default':
+                    response = random.choice(responses)
+                    break
+
+            if not response:
+                response = random.choice(bot_responses['default'])
+
+            return JsonResponse({
+                'success': True,
+                'bot_response': response
+            })
+
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            })
+
+    return JsonResponse({'success': False, 'error': 'Invalid method'})

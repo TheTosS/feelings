@@ -12,7 +12,8 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', views.custom_logout, name='logout'),
     path('delete/<int:pk>/', views.delete_feeling, name='delete_feeling'),
-    # Сброс пароля
+    path('chat/', views.chat, name='chat'),
+    path('api/chat/send/', views.chat_send, name='chat_send'),
     # Сброс пароля
     path('password-reset/',
          auth_views.PasswordResetView.as_view(
